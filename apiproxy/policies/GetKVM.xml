@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations mapIdentifier="userData" async="false" continueOnError="false" enabled="true" name="GetKVM">
+  <DisplayName>GetKVM</DisplayName>
+  <ExpiryTimeInSecs>86400</ExpiryTimeInSecs>
+  <Scope>environment</Scope>
+  <Get assignTo="kvm.getFirstUser" index="2">
+    <Key>
+      <Parameter>users</Parameter>
+    </Key>
+  </Get>
+</KeyValueMapOperations>

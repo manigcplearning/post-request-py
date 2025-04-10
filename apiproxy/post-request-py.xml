@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<APIProxy revision="17" name="post-request-py">
+  <DisplayName/>
+  <Description/>
+  <CreatedAt>1744304598789</CreatedAt>
+  <LastModifiedAt>1744304598789</LastModifiedAt>
+  <BasePaths>/post-request-py/v1</BasePaths>
+  <Policies>
+    <Policy>EV-extractPath</Policy>
+    <Policy>RemoveProxyPrefixAndRewrite</Policy>
+    <Policy>FooKVM</Policy>
+    <Policy>GetKVM</Policy>
+    <Policy>set-payload-3</Policy>
+  </Policies>
+  <ProxyEndpoints>
+    <ProxyEndpoint>default</ProxyEndpoint>
+  </ProxyEndpoints>
+  <TargetEndpoints>
+    <TargetEndpoint>default</TargetEndpoint>
+  </TargetEndpoints>
+</APIProxy>

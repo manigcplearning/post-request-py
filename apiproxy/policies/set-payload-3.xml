@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage name="set-payload-3">
+  <Set>
+    <Payload contentType="application/json">
+      {"name":"extracterUser", "type":"{kvm.getFirstUser}"}
+    </Payload>
+  </Set>
+</AssignMessage>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-extractPath">
+  <DisplayName>EV-extractPath</DisplayName>
+  <Properties/>
+  <URIPath>
+    <Pattern ignoreCase="true">/post-request-py/{test}</Pattern>
+  </URIPath>
+  <VariablePrefix>extracted</VariablePrefix>
+</ExtractVariables>

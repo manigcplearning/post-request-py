@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<KeyValueMapOperations async="false" continueOnError="false" enabled="true" name="FooKVM" mapIdentifier="userData">
+  <DisplayName>createKVM</DisplayName>
+  <ExpiryTimeInSecs>86400</ExpiryTimeInSecs>
+  <Scope>environment</Scope>
+  <Put>
+    <Key>
+      <Parameter>users</Parameter>
+    </Key>
+    <Value>user1</Value>
+    <Value>user2</Value>
+  </Put>
+</KeyValueMapOperations>

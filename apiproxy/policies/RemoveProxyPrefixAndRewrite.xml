@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage name="RemoveProxyPrefixAndRewrite">
+  <AssignTo type="request"/>
+  <Set>
+    <Path>/{extracted.test}</Path>
+  </Set>
+</AssignMessage>
