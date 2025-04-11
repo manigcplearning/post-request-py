@@ -1,0 +1,53 @@
+name: Deploy Apigee Proxy
+
+on:
+  push:
+    branches:
+      - apigee  # Trigger workflow on a push to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout code from GitHub repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Google Cloud SDK
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          version: 'latest'
+          project_id: 'dev-demo-id'
+       #   service_account_key: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      # Step 3: Authenticate with Apigee
+      - name: Authenticate with Apigee
+        run: |
+          echo "Authenticating with Apigee..."
+        #  gcloud auth activate-service-account --key-file="${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}"
+        #  gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
+
+      # Step 4: Deploy Apigee Proxy
+      - name: Deploy Apigee Proxy
+        run: |
+          echo "Deploying Apigee Proxy..."
+          APIGEE_ORG=dev-demo-id
+          APIGEE_ENV=${{ secrets.APIGEE_ENV }}
+          PROXY_ZIP=apiproxy.zip
+          API_PROXY=deploy-proxy
+          
+
+          # Compress proxy code (Assumes `apiproxy` folder exists in the repo)
+          zip -r $PROXY_ZIP apiproxy
+
+          # Deploy the proxy using the Apigee Management API
+          curl -X POST -H "Authorization: Bearer ya29.a0AZYkNZgF372LeNPrJLkBnHJmQsmK9mF8SPdlJZI9rv4rbtshbvy7aMwZr7pAe7j1EuQFe9wCJLddUWaicNcJl1fpzy_OBpEUhpx3fyKu_Ld8tqic5LcRmRuwNgS2tLtH4GoJVElh_C0P2eqo0XUhuxtsZdzYKHbUnUYUCkpMuTwGrTzJaCgYKAQoSARYSFQHGX2MiHwPeBbaG5xXTWrO5m0TTnA0183" \
+              -F "file=@${PROXY_ZIP}" \
+              "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/apis?action=import&name=$API_PROXY"
+
+
+          # Deploy uploaded proxy to the environment
+          curl -X POST -H "Authorization: Bearer ya29.a0AZYkNZgF372LeNPrJLkBnHJmQsmK9mF8SPdlJZI9rv4rbtshbvy7aMwZr7pAe7j1EuQFe9wCJLddUWaicNcJl1fpzy_OBpEUhpx3fyKu_Ld8tqic5LcRmRuwNgS2tLtH4GoJVElh_C0P2eqo0XUhuxtsZdzYKHbUnUYUCkpMuTwGrTzJaCgYKAQoSARYSFQHGX2MiHwPeBbaG5xXTWrO5m0TTnA0183" \
+              "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/apis/$API_PROXY/revisions/1/deployments"
