@@ -8,6 +8,6 @@
       <Parameter>users</Parameter>
     </Key>
     <Value>user1</Value>
-    <Value>user2</Value>
+    <Value>user3</Value>
   </Put>
 </KeyValueMapOperations>
