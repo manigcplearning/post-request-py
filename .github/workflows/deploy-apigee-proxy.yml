@@ -34,20 +34,19 @@ jobs:
         run: |
           echo "Deploying Apigee Proxy..."
           APIGEE_ORG=dev-demo-id
-          APIGEE_ENV=${{ secrets.APIGEE_ENV }}
+          APIGEE_ENV=test-env
           PROXY_ZIP=apiproxy.zip
           API_PROXY=deploy-proxy
           
-
           # Compress proxy code (Assumes `apiproxy` folder exists in the repo)
           zip -r $PROXY_ZIP apiproxy
-
+          
           # Deploy the proxy using the Apigee Management API
-          curl -X POST -H "Authorization: Bearer ya29.a0AZYkNZgF372LeNPrJLkBnHJmQsmK9mF8SPdlJZI9rv4rbtshbvy7aMwZr7pAe7j1EuQFe9wCJLddUWaicNcJl1fpzy_OBpEUhpx3fyKu_Ld8tqic5LcRmRuwNgS2tLtH4GoJVElh_C0P2eqo0XUhuxtsZdzYKHbUnUYUCkpMuTwGrTzJaCgYKAQoSARYSFQHGX2MiHwPeBbaG5xXTWrO5m0TTnA0183" \
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GAUTH_TOKEN }}" \
               -F "file=@${PROXY_ZIP}" \
               "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/apis?action=import&name=$API_PROXY"
 
 
           # Deploy uploaded proxy to the environment
-          curl -X POST -H "Authorization: Bearer ya29.a0AZYkNZgF372LeNPrJLkBnHJmQsmK9mF8SPdlJZI9rv4rbtshbvy7aMwZr7pAe7j1EuQFe9wCJLddUWaicNcJl1fpzy_OBpEUhpx3fyKu_Ld8tqic5LcRmRuwNgS2tLtH4GoJVElh_C0P2eqo0XUhuxtsZdzYKHbUnUYUCkpMuTwGrTzJaCgYKAQoSARYSFQHGX2MiHwPeBbaG5xXTWrO5m0TTnA0183" \
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GAUTH_TOKEN }}" \
               "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/apis/$API_PROXY/revisions/1/deployments"
