@@ -43,11 +43,11 @@ jobs:
           zip -r $PROXY_ZIP apiproxy
 
           # Deploy the proxy using the Apigee Management API
-          curl -X POST -H "Authorization: Bearer ${{secrets.GAUTH_TOKEN}}" \
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GAUTH_TOKEN }}" \
               -F "file=@${PROXY_ZIP}" \
               "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/apis?action=import&name=$API_PROXY"
 
 
           # Deploy uploaded proxy to the environment
-          curl -X POST -H "Authorization: Bearer ${{secrets.GAUTH_TOKEN}}" \
+          curl -X POST -H "Authorization: Bearer ${{ secrets.GAUTH_TOKEN }}" \
               "https://apigee.googleapis.com/v1/organizations/$APIGEE_ORG/environments/$APIGEE_ENV/apis/$API_PROXY/revisions/1/deployments"
